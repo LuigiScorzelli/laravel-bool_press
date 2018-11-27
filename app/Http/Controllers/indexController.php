@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Category;
+use App\Comment;
 
 class indexController extends Controller
 {
@@ -20,8 +21,15 @@ class indexController extends Controller
         return view('layouts.page.index_home', $data);
     }
 
-    public function post($id){
+    public function post(Post $post){
+        // dd($post);
+        $data = [
+            'post' => $post,
+            'comments' => Comment::where('post_id', $post->id)->get(),
+            'categorys' => Category::all(),
+            'all_posts' => Post::where('author_id', $post->author_id)->get(),
+        ];
 
-        return view('layouts.page.post', ['post' => Post::find($id)]);
+        return view('layouts.page.post', $data);
     }
 }

@@ -11,14 +11,14 @@
                 <div class="col-md-8 hot-post-left">
                     <!-- post -->
                     <div class="post post-thumb">
-                        <a class="post-img" href="{{ route('post', ['id' => $hot_post->id ]) }}"><img src="./img/hot-post-1.jpg" alt=""></a>
+                        <a class="post-img" href="{{ route('post', ['id' => $hot_post->id]) }}"><img src="./img/hot-post-1.jpg" alt=""></a>
                         <div class="post-body">
                             <div class="post-category">
-                                <a href="category.html">{{ $hot_post->category->name }}</a>
+                                <a href="{{ route('categorys', ['id' => $hot_post->category->id]) }}">{{ $hot_post->category->name }}</a>
                             </div>
-                            <h3 class="post-title title-lg"><a href="blog-post.html">{{ $hot_post->title }}</a></h3>
+                            <h3 class="post-title title-lg"><a href="{{ route('post', ['id' => $hot_post->id]) }}">{{ $hot_post->title }}</a></h3>
                             <ul class="post-meta">
-                                <li><a href="author.html">{{ $hot_post->author->fullname() }}</a></li>
+                                <li><a href="{{ route('post', ['id' => $hot_post->id]) }}">{{ $hot_post->author->fullname() }}</a></li>
                                 <li>{{ \Carbon\Carbon::parse($hot_post->created_at)->format('d/m/Y')}}</li>
                             </ul>
                         </div>
@@ -30,14 +30,14 @@
 
                     @foreach ($side_posts as $post)
                         <div class="post post-thumb">
-                            <a class="post-img" href="{{ route('post', ['id' => $post->id ])}}"><img src="./img/hot-post-2.jpg" alt=""></a>
+                            <a class="post-img" href="{{ route('post', ['id' => $post->id] )}}"><img src="./img/hot-post-2.jpg" alt=""></a>
                             <div class="post-body">
                                 <div class="post-category">
-                                    <a href="category.html">{{ $post->category->name }}</a>
+                                    <a href="{{ route('categorys', ['id' => $post->category->id]) }}">{{ $post->category->name }}</a>
                                 </div>
                                 <h3 class="post-title"><a href="{{ route('post', ['id' => $post->id ]) }}">{{ $post->title}}</a></h3>
                                 <ul class="post-meta">
-                                    <li><a href="author.html">{{ $post->author->fullname() }}</a></li>
+                                    <li><a href="{{ route('post', ['id' => $post->id ]) }}">{{ $post->author->fullname() }}</a></li>
                                     <li>{{ \Carbon\Carbon::parse($post->created_at)->format('d/m/Y')}}</li>
                                 </ul>
                             </div>
@@ -77,11 +77,11 @@
                                     <a class="post-img" href="{{ route('post' , ['id' => $post->id ]) }}"><img src="./img/post-1.jpg" alt=""></a>
                                     <div class="post-body">
                                         <div class="post-category">
-                                            <a href="#">{{ $post->category->name}}</a>
+                                            <a href="{{ route('categorys', ['id' => $post->category->id]) }}">{{ $post->category->name }}</a>
                                         </div>
-                                        <h3 class="post-title"><a href="{{ route('post' , ['id' => $post->id ]) }}">{{ $post->title }}</a></h3>
+                                        <h3 class="post-title"><a href="{{ route('post' , ['id' => $post->id ]) }}">{{ str_limit($post->title, 20, '[...]') }}</a></h3>
                                         <ul class="post-meta">
-                                            <li><a href="author.html">{{ $post->author->fullname() }}</a></li>
+                                            <li><a href="{{ route('post' , ['id' => $post->id ]) }}">{{ $post->author->fullname() }}</a></li>
                                             <li>{{ \Carbon\Carbon::parse($post->created_at)->format('d/m/Y') }}</li>
                                         </ul>
                                     </div>
@@ -117,52 +117,10 @@
                     <!-- /row -->
                 </div>
 
-                {{-- <div class="col-md-4">
-                    <!-- ad widget-->
-                    <div class="aside-widget text-center">
-                        <a href="#" style="display: inline-block;margin: auto;">
-                            <img class="img-responsive" src="./img/ad-3.jpg" alt="">
-                        </a>
-                    </div>
-                    <!-- /ad widget -->
-
-                    <!-- social widget -->
-                    <div class="aside-widget">
-                        <div class="section-title">
-                            <h2 class="title">Social Media</h2>
-                        </div>
-                        <div class="social-widget">
-                            <ul>
-                                <li>
-                                    <a href="#" class="social-facebook">
-                                        <i class="fa fa-facebook"></i>
-                                        <span>21.2K<br>Followers</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="social-twitter">
-                                        <i class="fa fa-twitter"></i>
-                                        <span>10.2K<br>Followers</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="social-google-plus">
-                                        <i class="fa fa-google-plus"></i>
-                                        <span>5K<br>Followers</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- /social widget -->
-                    --}}
-
                     <!-- category widget -->
                     <div class="aside-widget">
-                        <div class="section-title">
                             <h2 class="title">Categories</h2>
-                        </div>
-                        <div class="category-widget">
+                        <div class="category-widget col-md-4">
                             <ul>
                                 @foreach ($categorys as $category)
                                     <li><a href="{{ route('categorys', ['id' => $category->id]) }}">{{ $category->name }} <span>{{ $category->posts->count() }}</span></a></li>

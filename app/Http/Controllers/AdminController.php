@@ -33,10 +33,9 @@ class AdminController extends Controller
 
             // if($data['post_type'] == 'side_post'){
             //     DB::table('posts')
-            //     ->where('type', 'side_post')
-            //     ->update(['type' => 'normal']);
+            //     ->where('type', 'hot_post')
+            //     ->first();
             //
-            //     dd($data['post_type']);
             //     $post->type = 'side_post';
             // }
 

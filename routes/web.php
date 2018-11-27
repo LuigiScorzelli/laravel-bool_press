@@ -13,9 +13,9 @@
 
 Route::get('/', 'indexController@index');
 
-Route::get('/post/{id}', 'indexController@post')->name('post');
+Route::get('/post/{post}', 'indexController@post')->name('post');
  // controller categorys
-Route::get('category/{id}', 'categoryController@index')->name('categorys');
+Route::get('category/{categorys}', 'categoryController@index')->name('categorys');
 
 // Route::get('/author', 'authorController@index')->name('author');
 

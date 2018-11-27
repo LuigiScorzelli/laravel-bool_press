@@ -1,5 +1,7 @@
 @extends('layouts.blog')
-
+{{-- @php
+    dd($posts_category);
+@endphp --}}
 @section('header-bottom')
     <div class="page-header">
 			<div class="container">
@@ -23,18 +25,19 @@
 
 					<div class="row">
 						<!-- post -->
-                        @foreach ($categorys as $category)
+                        @foreach ($posts_category as $category)
                             <div class="col-md-6">
                                 <div class="post">
                                     <a class="post-img" href="blog-post.html"><img src="./img/post-3.jpg" alt=""></a>
                                     <div class="post-body">
                                         <div class="post-category">
-                                            <a href="category.html">{{ $categorys->name }}</a>
+                                            <a href="category.html">{{ $category->category->name }}</a>
                                         </div>
-                                        <h3 class="post-title"><a href="blog-post.html"></a></h3>
+                                        <h3 class="post-title"><a href="blog-post.html">{{ $category->title }}</a></h3>
+                                        <p>{{ str_limit($category->content, 100, '[...]') }}</p>
                                         <ul class="post-meta">
-                                            <li><a href="author.html">John Doe</a></li>
-                                            <li>20 April 2018</li>
+                                            <li><a href="author.html">{{ $category->author->fullname() }}</a></li>
+                                            <li>{{ \Carbon\Carbon::parse($category->created_at)->format('d/m/Y')}}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -47,24 +50,6 @@
 						<div class="clearfix visible-md visible-lg"></div>
 
 					</div>
-
-					<!-- post -->
-					{{-- <div class="post post-row">
-						<a class="post-img" href="blog-post.html"><img src="./img/post-13.jpg" alt=""></a>
-						<div class="post-body">
-							<div class="post-category">
-								<a href="category.html">Travel</a>
-								<a href="category.html">Lifestyle</a>
-							</div>
-							<h3 class="post-title"><a href="blog-post.html">Mel ut impetus suscipit tincidunt. Cum id ullum laboramus persequeris.</a></h3>
-							<ul class="post-meta">
-								<li><a href="author.html">John Doe</a></li>
-								<li>20 April 2018</li>
-							</ul>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...</p>
-						</div>
-					</div> --}}
-					<!-- /post -->
 
 				</div>
 
@@ -84,11 +69,11 @@
 						</div>
 						<div class="category-widget">
 							<ul>
-								<li><a href="#">Lifestyle <span>451</span></a></li>
-								<li><a href="#">Fashion <span>230</span></a></li>
-								<li><a href="#">Technology <span>40</span></a></li>
-								<li><a href="#">Travel <span>38</span></a></li>
-								<li><a href="#">Health <span>24</span></a></li>
+								@foreach ($all as $data)
+
+                                    <li><a href="{{route('categorys', ['id' => $data->id])}}">{{ $data->name }} <span>{{ $data->posts->count() }}</span></a></li>
+
+                                @endforeach
 							</ul>
 						</div>
 					</div>
