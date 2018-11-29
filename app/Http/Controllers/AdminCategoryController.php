@@ -28,5 +28,35 @@ class AdminCategoryController extends Controller
 
     }
 
+    public function create(){
+
+        return view('backoffice.category_page.categoryCreate');
+    }
+
+    public function save(Request $request){
+        $data = $request->all();
+
+        if(empty($data['name']) || empty($data['description'])){
+            return 'error';
+        }
+
+        $category = new Category();
+        $category->fill($data);
+
+        $category->save();
+
+        return redirect()->route('admin.categorys');
+    }
+
+    public function delete(Category $category){
+
+        $category['is_active'] = 0;
+
+        // dd($category);
+        $category->delete();
+
+        return redirect()->route('admin.categorys');
+    }
+
 
 }

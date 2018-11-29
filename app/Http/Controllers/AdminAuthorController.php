@@ -28,4 +28,32 @@ class AdminAuthorController extends Controller
         }
 
     }
+
+    public function create(){
+
+        return view('backoffice.author_page.authorCreate');
+    }
+
+    public function save(Request $request){
+        $data = $request->all();
+
+        if( empty($data['first_name']) || empty($data['last_name']) || empty($data['description']) )
+        {
+            return 'error';
+        }
+
+        $author = new Author();
+        $author->fill($data);
+        $author->save();
+
+        return redirect()->route('admin.author');
+    }
+
+    public function delete(Author $author){
+
+        $author->delete();
+
+        return redirect()->route('admin.author');
+
+    }
 }
